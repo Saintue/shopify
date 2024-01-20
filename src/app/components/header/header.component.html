@@ -1,0 +1,49 @@
+<header class="shopify__header">
+  <div class="shopify__container">
+    <div class="shopify__header_aligner">
+      <div class="shopify__header_logo">
+        <a href="#"><h1>Shopify</h1></a>
+      </div>
+      <span class="shopify__header_auth">
+        <div>
+          <p-button
+            *ngIf="!loggedIn"
+            class="auth__header_button"
+            (click)="showRegister()"
+            label="sign up"></p-button>
+          <p-dialog
+            [(visible)]="registerVisible"
+            [modal]="true"
+            [style]="{ width: '30rem' }"
+            [draggable]="false">
+            <div class="header__dialog">
+              <sf-register></sf-register>
+            </div>
+          </p-dialog>
+        </div>
+        <p-button
+          *ngIf="!loggedIn"
+          class="auth__header_button"
+          (click)="showLogin()"
+          label="sign in">
+        </p-button>
+        <p-dialog
+          [(visible)]="loginVisible"
+          [modal]="true"
+          [style]="{ width: '30rem' }"
+          [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+          [draggable]="false">
+          <div class="header__dialog">
+            <sf-login></sf-login>
+          </div>
+        </p-dialog>
+        <p-button
+          *ngIf='loggedIn'
+          class="auth__header_button"
+          (click)="logOut()"
+          label="logOut">
+        </p-button>
+      </span>
+    </div>
+  </div>
+</header>
