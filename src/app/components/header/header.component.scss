@@ -1,0 +1,38 @@
+.header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0px 10px;
+  background-color: gray;
+  border-bottom: black 1px solid;
+  &__aligner {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__auth {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+  &__auth-button {
+    padding-right: 30px;
+  }
+  &__dialog {
+    display: flex;
+    justify-content: center;
+  }
+  &__auth-button:last-child {
+    padding-right: 0;
+  }
+}
+
+.container {
+  display: flex;
+  max-width: 1400px;
+  width: 100%;
+}
+.logo {
+}
