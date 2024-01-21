@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { NgForOf } from '@angular/common';
+import {TableModule} from "primeng/table";
+import {ButtonModule} from "primeng/button";
 
 @Component({
   selector: 'sf-cart',
   standalone: true,
-  imports: [NgForOf],
+  imports: [NgForOf, TableModule, ButtonModule],
   templateUrl: './product-cart.component.html',
   styleUrl: './product-cart.component.scss',
 })

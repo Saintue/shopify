@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { NgForOf } from '@angular/common';
 import { Product } from '../../../interfaces/product';
+import {ButtonModule} from "primeng/button";
+import {TableModule} from "primeng/table";
 
 @Component({
   selector: 'sf-product-editor',
   standalone: true,
-  imports: [NgForOf],
+  imports: [NgForOf, ButtonModule, TableModule],
   templateUrl: './product-editor.component.html',
   styleUrl: './product-editor.component.scss',
 })
