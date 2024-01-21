@@ -5,6 +5,7 @@ import { AutoFocusModule } from 'primeng/autofocus';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegisterComponent } from '../register/register.component';
 import { LoginComponent } from '../login/login.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'sf-header',
@@ -21,17 +22,17 @@ import { LoginComponent } from '../login/login.component';
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
+  constructor(private authService: AuthService) {}
   registerVisible: boolean = false;
   loginVisible: boolean = false;
   loggedIn: boolean = true;
-  showRegister() {
-    this.registerVisible = true;
+  showRegister(): void {
+    this.registerVisible = this.authService.showRegister(this.registerVisible);
   }
-  showLogin() {
-    this.loginVisible = true;
+  showLogin(): void {
+    this.loginVisible = this.authService.showLogin(this.loginVisible);
   }
-
-  logOut() {
-    this.loggedIn = false;
+  logOut(): void {
+    this.loggedIn = this.authService.logOut(this.loggedIn);
   }
 }

@@ -1,0 +1,28 @@
+ <div class='cart'>
+ <table>
+   <thead>
+   <tr>
+     <th>Name</th>
+     <th>quantity</th>
+     <th>price</th>
+     <th>put back</th>
+   </tr>
+   </thead>
+ </table>
+ <div class="cart__table-body">
+<table>
+  <tbody>
+  <tr *ngFor="let product of products">
+    <td>{{ product.name }}</td>
+    <td>{{ product.quantity }}</td>
+    <td>{{ product.price }}</td>
+    <td><button class='pi pi-minus'></button></td>
+  </tr>
+  </tbody>
+  </table>
+ </div>
+ </div>
+ <div class='cart__checkout'>
+  Grand Total: 10000
+ <button class="pi pi-shopping-cart">checkout</button>
+ </div>

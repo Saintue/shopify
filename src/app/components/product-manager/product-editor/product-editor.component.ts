@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
 import { NgForOf } from '@angular/common';
+import { Product } from '../../../interfaces/product';
 
 @Component({
-  selector: 'sf-calculator',
+  selector: 'sf-product-editor',
   standalone: true,
-  imports: [ButtonModule, NgForOf],
-  templateUrl: './calculator.component.html',
-  styleUrl: './calculator.component.scss',
+  imports: [NgForOf],
+  templateUrl: './product-editor.component.html',
+  styleUrl: './product-editor.component.scss',
 })
-export class CalculatorComponent {
-  products = [
+export class ProductEditorComponent {
+  products: Product[] = [
     { name: 'product1', quantity: 10, price: 10 },
     { name: 'product2', quantity: 20, price: 30 },
     { name: 'product3', quantity: 50, price: 160 },
@@ -23,7 +23,7 @@ export class CalculatorComponent {
 
   i: number = 9;
 
-  createProduct() {
+  addProduct(): void {
     this.products.push({
       name: `product${this.i++}`,
       quantity: Math.floor(Math.random() * 100),

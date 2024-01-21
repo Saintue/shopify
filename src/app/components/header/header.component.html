@@ -1,14 +1,14 @@
-<header class="shopify__header">
-  <div class="shopify__container">
-    <div class="shopify__header_aligner">
-      <div class="shopify__header_logo">
+<header class="header">
+  <div class="container">
+    <div class="header__aligner">
+      <div class="logo">
         <a href="#"><h1>Shopify</h1></a>
       </div>
-      <span class="shopify__header_auth">
+      <span class="header__auth">
         <div>
           <p-button
             *ngIf="!loggedIn"
-            class="auth__header_button"
+            class="header__auth-button"
             (click)="showRegister()"
             label="sign up"></p-button>
           <p-dialog
@@ -23,7 +23,7 @@
         </div>
         <p-button
           *ngIf="!loggedIn"
-          class="auth__header_button"
+          class="header__auth-button"
           (click)="showLogin()"
           label="sign in">
         </p-button>
@@ -39,7 +39,7 @@
         </p-dialog>
         <p-button
           *ngIf='loggedIn'
-          class="auth__header_button"
+          class="header__auth-button"
           (click)="logOut()"
           label="logOut">
         </p-button>

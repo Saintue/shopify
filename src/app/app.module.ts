@@ -6,7 +6,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
-import { CalculatorComponent } from './components/calculator/calculator.component';
+import { ProductManagerComponent } from './components/product-manager/product-manager.component';
 import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
@@ -18,7 +18,7 @@ import { HeaderComponent } from './components/header/header.component';
     InputTextModule,
     FormsModule,
     LoginComponent,
-    CalculatorComponent,
+    ProductManagerComponent,
     HeaderComponent,
   ],
   bootstrap: [AppComponent],

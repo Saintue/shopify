@@ -1,0 +1,30 @@
+<div class="cart">
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>quantity</th>
+        <th>price</th>
+        <th>add</th>
+        <th>delete</th>
+      </tr>
+    </thead>
+  </table>
+  <div class="cart__table-body">
+    <table>
+      <tbody>
+        <tr *ngFor="let product of products">
+          <td>{{ product.name }}</td>
+          <td>{{ product.quantity }}</td>
+          <td>{{ product.price }}</td>
+          <td><button class="pi pi-plus"></button></td>
+          <td><button class="pi pi-trash"></button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <button class="add-button pi pi-star" (click)="addProduct()">
+    Создать товар
+  </button>
+</div>
+
