@@ -8,9 +8,12 @@ import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { ProductManagerComponent } from './components/product-manager/product-manager.component';
 import { HeaderComponent } from './components/header/header.component';
+import { MessageService } from 'primeng/api';
+import { NotificationComponent } from './services/notification/notification.component';
 
 @NgModule({
   declarations: [AppComponent],
+  providers: [MessageService],
   imports: [
     BrowserModule,
     ButtonModule,
@@ -20,6 +23,7 @@ import { HeaderComponent } from './components/header/header.component';
     LoginComponent,
     ProductManagerComponent,
     HeaderComponent,
+    NotificationComponent,
   ],
   bootstrap: [AppComponent],
 })
