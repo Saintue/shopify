@@ -1,14 +1,66 @@
-<div class="register">
-  <span>nickname</span>
-  <br />
-  <input type="text" pInputText [(ngModel)]="value1" />
-</div>
-<div class="register">
-  <span>password</span>
-  <br />
-  <input type="text" pInputText [(ngModel)]="value2" />
-</div>
-<br />
-<div class="login">
-  <p-button label="sign in"></p-button>
+<div>
+  <form
+    class="login__form"
+    [formGroup]="loginForm"
+    (ngSubmit)="onSubmit()">
+    <span class="login__input-field">
+      <label class="label">mail</label>
+      <input
+        pInputText
+        type="text"
+        maxlength="30"
+        class="input"
+        formControlName="mail"
+        [class.invalid]="
+          loginForm.get('mail')?.invalid && loginForm.get('mail')?.touched
+        " />
+    </span>
+    <span
+      *ngIf="
+        loginForm.get('mail')?.errors?.['required'] &&
+        loginForm.get('mail')?.touched
+      "
+    ><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    >this field is required</a
+    ></span
+    >
+    <span
+      *ngIf="
+        loginForm.get('mail')?.errors?.['email'] &&
+        loginForm.get('mail')?.touched
+      "
+    ><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    >mail must be valid</a
+    ></span
+    >
+    <br />
+    <br />
+    <span class="login__input-field">
+      <label>password</label>
+      <input
+        pInputText
+        type="password"
+        maxlength="30"
+        formControlName="password"
+        [class.invalid]="
+          (loginForm.get('confirm')?.invalid &&
+            loginForm.get('password')?.touched)
+        " />
+    </span>
+    <span
+      *ngIf="
+        loginForm.get('password')?.invalid &&
+        loginForm.get('password')?.touched
+      "
+    ><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    >this field is required</a
+    ></span
+    >
+    <br />
+    <br />
+
+    <div class="login__submit-button">
+      <p-button type="submit">sign in<sf-loading-spinner></sf-loading-spinner></p-button>
+    </div>
+  </form>
 </div>

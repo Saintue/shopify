@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { AutoFocusModule } from 'primeng/autofocus';
@@ -21,11 +21,11 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
+  loggedIn = !!localStorage.getItem('loggedIn');
   constructor(private authService: AuthService) {}
   registerVisible: boolean = false;
   loginVisible: boolean = false;
-  loggedIn: boolean = true;
   showRegister(): void {
     this.registerVisible = this.authService.showRegister(this.registerVisible);
   }
@@ -33,6 +33,10 @@ export class HeaderComponent {
     this.loginVisible = this.authService.showLogin(this.loginVisible);
   }
   logOut(): void {
-    this.loggedIn = this.authService.logOut(this.loggedIn);
+    this.loggedIn = this.authService.logOut();
+  }
+
+  ngOnInit() {
+    this.authService.Login().subscribe(item => (this.loggedIn = item));
   }
 }

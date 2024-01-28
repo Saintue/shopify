@@ -10,6 +10,8 @@ import { ProductManagerComponent } from './components/product-manager/product-ma
 import { HeaderComponent } from './components/header/header.component';
 import { MessageService } from 'primeng/api';
 import { NotificationComponent } from './services/notification/notification.component';
+import { HttpClientModule } from '@angular/common/http';
+import { LoadingComponent } from './services/loading/loading.component';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,6 +26,8 @@ import { NotificationComponent } from './services/notification/notification.comp
     ProductManagerComponent,
     HeaderComponent,
     NotificationComponent,
+    HttpClientModule,
+    LoadingComponent,
   ],
   bootstrap: [AppComponent],
 })

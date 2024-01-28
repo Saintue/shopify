@@ -1,4 +1,14 @@
-.register__submit_button{
+.register__submit-button{
   display: flex;
   justify-content: center;
+}
+
+.register__input-field{
+  display:flex;
+  flex-direction: column;
+}
+
+.email__validators{
+  display: flex;
+  flex-direction: column;
 }
