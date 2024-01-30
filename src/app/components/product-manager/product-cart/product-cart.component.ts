@@ -4,6 +4,7 @@ import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { ProductEditorService } from '../../../services/productEditorService/product-editor.service';
 import { Product } from '../../../interfaces/product';
+import { CartProduct } from '../../../interfaces/cartProduct/cart-product';
 
 @Component({
   selector: 'sf-cart',
@@ -13,10 +14,10 @@ import { Product } from '../../../interfaces/product';
   styleUrl: './product-cart.component.scss',
 })
 export class ProductCartComponent implements OnInit {
-  products: Product[] = [];
+  products: CartProduct[] = [];
   constructor(private editor: ProductEditorService) {}
   ngOnInit() {
-    this.editor.getProducts().subscribe(res => {
+    this.editor.getProductCartList().subscribe(res => {
       this.products = res;
     });
   }
