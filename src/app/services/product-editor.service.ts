@@ -1,36 +1,55 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
-import { Product } from '../../interfaces/product';
-import { CartProduct } from '../../interfaces/cartProduct/cart-product';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Product } from '../interfaces/product';
+import { CartProduct } from '../interfaces/cartProduct/cart-product';
+import { ProductHttpService } from './http/product-http.service';
+import { NotificationService } from './notification/notification.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductEditorService {
+  private productsSubject$ = new BehaviorSubject<Product[] | null>(null);
+  products$: Observable<Product[] | null>;
+
   private cartItemList: CartProduct[] = [];
   private cartProductList = new BehaviorSubject<CartProduct[]>([]);
-  private productList = new BehaviorSubject<Product[]>([]);
   private productPositiveList: Product[] = [];
-  constructor(private http: HttpClient) {}
+  constructor(
+    private productHttpService: ProductHttpService,
+    private notificationService: NotificationService
+  ) {
+    this.products$ = this.productsSubject$.asObservable();
+
+    if (this.productsSubject$.value === null) {
+      this.productHttpService.getProducts().subscribe({
+        next: (products: Product[]) => {
+          this.productsSubject$.next(products);
+        },
+        error: () => {
+          this.notificationService.error('Something went wrong');
+        },
+      });
+    }
+  }
+
+
+  removeProduct(productToRemove: Product) {
+    const newProducts: Product[] = this.productsSubject$.value!.filter((product)=>{
+      return product.id !== productToRemove.id
+    })
+
+    this.productsSubject$.next(newProducts)
+  }
 
   getProductCartList() {
     return this.cartProductList.asObservable();
   }
 
-  getProductList() {
-    this.http
-      .get<Product[]>('http://localhost:4000/api/goods')
-      .subscribe(res => {
-        this.productList.next(res);
-        this.productPositiveList = res;
-      });
-    return this.productList.asObservable();
-  }
-  addToCart(name: string, quantity: number, price: number) {
-    if (quantity === 0) {
-      return;
-    }
+  addToCart(product: Product) {
+    const {name, quantity, price, id} = product
+    if (quantity === 0) return
     for (let i = 0; i <= this.cartItemList.length; i++) {
       if (this.cartItemList[i] !== undefined) {
         if (this.cartItemList[i].name === name) {
@@ -44,7 +63,7 @@ export class ProductEditorService {
         }
       }
       if (this.cartItemList[i] === undefined) {
-        this.cartItemList.push({ name: name, quantity: 1, price: price });
+        this.cartItemList.push({ name, quantity: 1, price });
         this.cartProductList.next(this.cartItemList);
         break;
       }
@@ -67,19 +86,11 @@ export class ProductEditorService {
     }
   }
 
-  addProductToDataBaseList(name: string, quantity: number, price: number) {
-    return this.http.post('http://localhost:4000/api/goods/', {
-      name: name,
-      quantity: quantity,
-      price: price,
-    });
-  }
-
   removeFromApp(name: string) {
     for (let i = 0; i <= this.productPositiveList.length; i++) {
       if (this.productPositiveList[i].name === name) {
         this.productPositiveList.splice(i, 1);
-        this.productList.next(this.productPositiveList);
+        /*        this.productList.next(this.productPositiveList);*/
         break;
       }
     }
@@ -96,9 +107,9 @@ export class ProductEditorService {
     }
   }
 
-  DeleteProductFromDataBaseList(id: string) {
+/*  DeleteProductFromDataBaseList(id: string) {
     return this.http.delete(`http://localhost:4000/api/goods/${id}`);
-  }
+  }*/
 
   addProductToList(name: string, quantity: number, price: number, id: string) {
     this.productPositiveList.push({
@@ -107,7 +118,7 @@ export class ProductEditorService {
       price: price,
       id: id,
     });
-    this.productList.next(this.productPositiveList);
-    console.log(this.productList);
+    /*    this.productList.next(this.productPositiveList);
+    console.log(this.productList);*/
   }
 }

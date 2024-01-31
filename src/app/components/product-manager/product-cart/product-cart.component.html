@@ -1,4 +1,6 @@
+<div class="product-cart">
 <p-table
+  *ngIf="(cartService.cart$ | async) as products"
   [value]="products"
   [scrollable]="true"
   scrollHeight="400px"
@@ -21,8 +23,7 @@
           icon="pi pi-minus"
           (click)="
             removeFromCart(product.name, product.quantity, product.price)
-          "
-          ></p-button>
+          "></p-button>
       </td>
     </tr>
   </ng-template>
@@ -30,4 +31,5 @@
 <div class="cart__checkout">
   <p-button label="checkout"></p-button>
   Grand Total: 1000
+</div>
 </div>

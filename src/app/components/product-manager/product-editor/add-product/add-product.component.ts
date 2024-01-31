@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, DestroyRef} from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { LoadingComponent } from '../../../../services/loading/loading.component';
@@ -13,7 +13,9 @@ import {
 } from '@angular/forms';
 import { NotificationService } from '../../../../services/notification/notification.service';
 import { LoadingService } from '../../../../services/loading/loading.service';
-import { ProductEditorService } from '../../../../services/productEditorService/product-editor.service';
+import { ProductEditorService } from '../../../../services/product-editor.service';
+import { of, pipe } from 'rxjs';
+import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 
 interface AddProductForm
   extends FormGroup<{
@@ -42,7 +44,8 @@ export class AddProductComponent {
     private formBuilder: FormBuilder,
     private notifService: NotificationService,
     private loading: LoadingService,
-    private editor: ProductEditorService
+    private editor: ProductEditorService,
+    private destroyRef: DestroyRef
   ) {
     this.addProductForm = this.formBuilder.nonNullable.group({
       name: ['', Validators.required],
@@ -51,36 +54,17 @@ export class AddProductComponent {
     });
   }
   onSubmit(): void {
-    this.loading.startLoading();
-    if (this.addProductForm.valid) {
-      this.editor
-        .addProductToDataBaseList(
-          (this.addProductForm.value.name || '').toString(),
-          +(this.addProductForm.value.quantity || ''),
-          +(this.addProductForm.value.price || '')
-        )
-        .subscribe(
-          res => {
-            let currentObj = JSON.parse(JSON.stringify(res));
-            console.log(currentObj.id);
-            this.editor.addProductToList(
-              (this.addProductForm.value.name || '').toString(),
-              +(this.addProductForm.value.quantity || ''),
-              +(this.addProductForm.value.price || ''),
-              currentObj.id
-            );
-            this.loading.stopLoading();
-            this.notifService.success('Product added successfully');
-          },
-          err => {
-            this.notifService.error(err.error.message);
-            this.loading.stopLoading();
-          }
-        );
-    } else {
+    if (this.addProductForm.invalid) {
       this.addProductForm.markAllAsTouched();
       this.notifService.error('Invalid form data');
-      this.loading.stopLoading();
+      return;
     }
+
+    const formData = this.addProductForm.value;
+    of(formData).pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe({
+
+    });
   }
 }

@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
-import { Product } from '../../../interfaces/product';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { NotificationService } from '../../../services/notification/notification.service';
-import { ProductEditorService } from '../../../services/productEditorService/product-editor.service';
-import { HttpClient } from '@angular/common/http';
 import { DialogModule } from 'primeng/dialog';
 import { AddProductComponent } from './add-product/add-product.component';
+import { ProductEditorService } from '../../../services/product-editor.service';
+import { Product } from '../../../interfaces/product';
+import { CartService } from '../../../services/cart.service';
 
 @Component({
   selector: 'sf-product-editor',
@@ -22,36 +22,33 @@ import { AddProductComponent } from './add-product/add-product.component';
     AddProductComponent,
   ],
   templateUrl: './product-editor.component.html',
-  styleUrl: './product-editor.component.scss',
+  styleUrls: ['./product-editor.component.scss'],
 })
 export class ProductEditorComponent implements OnInit {
   constructor(
-    private notifService: NotificationService,
-    private editor: ProductEditorService,
-    private http: HttpClient
+    private notificationService: NotificationService,
+    protected cartService: CartService,
+    protected productEditorService: ProductEditorService
   ) {}
+
+  ngOnInit(): void {}
+
   addProductVisible = false;
-  products: Product[] = [];
   showAddProduct() {
     this.addProductVisible = true;
   }
-  addToCart(name: string, quantity: number, price: number) {
-    console.log(name, price);
-    this.editor.addToCart(name, quantity, price);
+
+  addProductToCart(product: Product): void {
+    this.productEditorService.removeProduct(product);
+    this.cartService.addToCart(product)
   }
 
-  removeFromDB(name: string, id: string) {
-    this.editor.DeleteProductFromDataBaseList(id).subscribe(res => {
-      this.notifService.success('removed successfully');
-      this.editor.removeFromApp(name);
-    });
-  }
-
-  ngOnInit() {
-    this.editor.getProductList().subscribe(res => {
-      this.products = res;
-    });
-  }
-
-  protected readonly console = console;
+/*  removeFromDB(name: string, id: string) {
+    this.productEditorService
+      .DeleteProductFromDataBaseList(id)
+      .subscribe(res => {
+        this.notificationService.success('removed successfully');
+        this.productEditorService.removeFromApp(name);
+      });
+  }*/
 }
