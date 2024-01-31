@@ -1,35 +1,57 @@
-import { Component } from '@angular/core';
-import { NgForOf } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 import { Product } from '../../../interfaces/product';
-import {ButtonModule} from "primeng/button";
-import {TableModule} from "primeng/table";
+import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
+import { NotificationService } from '../../../services/notification/notification.service';
+import { ProductEditorService } from '../../../services/productEditorService/product-editor.service';
+import { HttpClient } from '@angular/common/http';
+import { DialogModule } from 'primeng/dialog';
+import { AddProductComponent } from './add-product/add-product.component';
 
 @Component({
   selector: 'sf-product-editor',
   standalone: true,
-  imports: [NgForOf, ButtonModule, TableModule],
+  imports: [
+    NgForOf,
+    ButtonModule,
+    TableModule,
+    AsyncPipe,
+    NgIf,
+    DialogModule,
+    AddProductComponent,
+  ],
   templateUrl: './product-editor.component.html',
   styleUrl: './product-editor.component.scss',
 })
-export class ProductEditorComponent {
-  products: Product[] = [
-    { name: 'product1', quantity: 10, price: 10 },
-    { name: 'product2', quantity: 20, price: 30 },
-    { name: 'product3', quantity: 50, price: 160 },
-    { name: 'product4', quantity: 110, price: 130 },
-    { name: 'product5', quantity: 140, price: 10 },
-    { name: 'product6', quantity: 106, price: 90 },
-    { name: 'product7', quantity: 103, price: 50 },
-    { name: 'product8', quantity: 2, price: 150 },
-  ];
+export class ProductEditorComponent implements OnInit {
+  constructor(
+    private notifService: NotificationService,
+    private editor: ProductEditorService,
+    private http: HttpClient
+  ) {}
+  addProductVisible = false;
+  products: Product[] = [];
+  showAddProduct() {
+    this.addProductVisible = true;
+  }
+  addToCart(name: string, quantity: number, price: number) {
+    console.log(name, price);
+    this.editor.addToCart(name, quantity, price);
+  }
 
-  i: number = 9;
-
-  addProduct(): void {
-    this.products.push({
-      name: `product${this.i++}`,
-      quantity: Math.floor(Math.random() * 100),
-      price: Math.floor(Math.random() * 100),
+  removeFromDB(name: string, id: string) {
+    this.editor.DeleteProductFromDataBaseList(id).subscribe(res => {
+      this.notifService.success('removed successfully');
+      this.editor.removeFromApp(name);
     });
   }
+
+  ngOnInit() {
+    this.editor.getProductList().subscribe(res => {
+      this.products = res;
+    });
+  }
+
+  protected readonly console = console;
 }

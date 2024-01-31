@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForOf } from '@angular/common';
-import {TableModule} from "primeng/table";
-import {ButtonModule} from "primeng/button";
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { ProductEditorService } from '../../../services/productEditorService/product-editor.service';
+import { Product } from '../../../interfaces/product';
+import { CartProduct } from '../../../interfaces/cartProduct/cart-product';
 
 @Component({
   selector: 'sf-cart',
@@ -10,31 +13,15 @@ import {ButtonModule} from "primeng/button";
   templateUrl: './product-cart.component.html',
   styleUrl: './product-cart.component.scss',
 })
-export class ProductCartComponent {
-  products = [
-    { name: 'product1', quantity: 10, price: 10 },
-    { name: 'product2', quantity: 20, price: 30 },
-    { name: 'product3', quantity: 50, price: 160 },
-    { name: 'product4', quantity: 110, price: 130 },
-    { name: 'product1', quantity: 10, price: 10 },
-    { name: 'product2', quantity: 20, price: 30 },
-    { name: 'product3', quantity: 50, price: 160 },
-    { name: 'product4', quantity: 110, price: 130 },
-    { name: 'product1', quantity: 10, price: 10 },
-    { name: 'product2', quantity: 20, price: 30 },
-    { name: 'product3', quantity: 50, price: 160 },
-    { name: 'product4', quantity: 110, price: 130 },
-    { name: 'product1', quantity: 10, price: 10 },
-    { name: 'product2', quantity: 20, price: 30 },
-    { name: 'product3', quantity: 50, price: 160 },
-    { name: 'product4', quantity: 110, price: 130 },
-    { name: 'product1', quantity: 10, price: 10 },
-    { name: 'product2', quantity: 20, price: 30 },
-    { name: 'product3', quantity: 50, price: 160 },
-    { name: 'product4', quantity: 110, price: 130 },
-    { name: 'product1', quantity: 10, price: 10 },
-    { name: 'product2', quantity: 20, price: 30 },
-    { name: 'product3', quantity: 50, price: 160 },
-    { name: 'product4', quantity: 110, price: 130 },
-  ];
+export class ProductCartComponent implements OnInit {
+  products: CartProduct[] = [];
+  constructor(private editor: ProductEditorService) {}
+  ngOnInit() {
+    this.editor.getProductCartList().subscribe(res => {
+      this.products = res;
+    });
+  }
+  removeFromCart(product: string, quantity: number, price: number) {
+    this.editor.removeFromCart(product, quantity, price);
+  }
 }

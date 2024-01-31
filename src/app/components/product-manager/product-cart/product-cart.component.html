@@ -1,4 +1,8 @@
-<p-table [value]="products" [scrollable]="true" scrollHeight="400px" [tableStyle]="{'min-width': '30rem'}">
+<p-table
+  [value]="products"
+  [scrollable]="true"
+  scrollHeight="400px"
+  [tableStyle]="{ 'min-width': '30rem' }">
   <ng-template pTemplate="header">
     <tr>
       <th>Name</th>
@@ -9,10 +13,17 @@
   </ng-template>
   <ng-template pTemplate="body" let-product>
     <tr>
-      <td>{{product.name}}</td>
-      <td>{{product.quantity}}</td>
-      <td>{{product.price}}</td>
-      <td><p-button icon="pi pi-minus"></p-button> </td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.quantity }}</td>
+      <td>{{ product.price }}</td>
+      <td>
+        <p-button
+          icon="pi pi-minus"
+          (click)="
+            removeFromCart(product.name, product.quantity, product.price)
+          "
+          ></p-button>
+      </td>
     </tr>
   </ng-template>
 </p-table>

@@ -1,0 +1,100 @@
+<div>
+  <form
+    class="addProduct__form"
+    [formGroup]="addProductForm"
+    (ngSubmit)="onSubmit()">
+    <span class="addProduct__input-field">
+      <label class="label">Name</label>
+      <input
+        pInputText
+        type="text"
+        maxlength="30"
+        class="input"
+        formControlName="name"
+        [class.invalid]="
+          addProductForm.get('name')?.invalid &&
+          addProductForm.get('name')?.touched
+        " />
+    </span>
+    <span
+      *ngIf="
+        addProductForm.get('name')?.errors?.['required'] &&
+        addProductForm.get('name')?.touched
+      "
+      ><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+        >this field is required</a
+      ></span
+    >
+    <br />
+    <br />
+    <span class="addProduct__input-field">
+      <label>Quantity</label>
+      <input
+        pInputText
+        maxlength="30"
+        formControlName="quantity"
+        [class.invalid]="
+          addProductForm.get('quantity')?.invalid &&
+          addProductForm.get('quantity')?.touched
+        " />
+    </span>
+    <span
+      *ngIf="
+        addProductForm.get('quantity')?.errors?.['required'] &&
+        addProductForm.get('quantity')?.touched
+      "
+      ><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+        >this field is required</a
+      ></span
+    >
+    <span
+      *ngIf="
+        addProductForm.get('quantity')?.errors?.['pattern'] &&
+        addProductForm.get('quantity')?.touched
+      "
+    ><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    >Numbers only</a
+    ></span
+    >
+    <br />
+    <br />
+
+    <span class="addProduct__input-field">
+      <label>Price</label>
+      <input
+        pInputText
+        maxlength="30"
+        formControlName="price"
+        [class.invalid]="
+          addProductForm.get('price')?.invalid &&
+          addProductForm.get('price')?.touched
+        " />
+    </span>
+    <span
+      *ngIf="
+        addProductForm.get('price')?.errors?.['required'] &&
+        addProductForm.get('price')?.touched
+      "
+      ><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+        >this field is required</a
+      ></span
+    >
+    <span
+      *ngIf="
+        addProductForm.get('price')?.errors?.['pattern'] &&
+        addProductForm.get('price')?.touched
+      "
+    ><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    >Numbers only</a
+    ></span
+    >
+    <br />
+    <br />
+
+    <div class="addProduct__submit-button">
+      <p-button type="submit"
+        >add product<sf-loading-spinner></sf-loading-spinner
+      ></p-button>
+    </div>
+  </form>
+</div>

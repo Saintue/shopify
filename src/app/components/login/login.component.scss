@@ -1,4 +1,14 @@
-.login {
+.login__submit-button{
   display: flex;
   justify-content: center;
+}
+
+.login__input-field{
+  display:flex;
+  flex-direction: column;
+}
+
+.email__validators{
+  display: flex;
+  flex-direction: column;
 }
