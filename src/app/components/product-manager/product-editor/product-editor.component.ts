@@ -8,6 +8,7 @@ import { AddProductComponent } from './add-product/add-product.component';
 import { ProductEditorService } from '../../../services/product-editor.service';
 import { Product } from '../../../interfaces/product';
 import { CartService } from '../../../services/cart.service';
+import {UpdateProductComponent} from "./update-product/update-product.component";
 
 @Component({
   selector: 'sf-product-editor',
@@ -20,6 +21,7 @@ import { CartService } from '../../../services/cart.service';
     NgIf,
     DialogModule,
     AddProductComponent,
+    UpdateProductComponent,
   ],
   templateUrl: './product-editor.component.html',
   styleUrls: ['./product-editor.component.scss'],
@@ -34,21 +36,22 @@ export class ProductEditorComponent implements OnInit {
   ngOnInit(): void {}
 
   addProductVisible = false;
+  updateProductVisible:boolean = false;
+
+  getProduct(name:string){
+    this.productEditorService.getProduct(name)
+  }
+  showEdit(){
+    this.updateProductVisible = true;
+  }
   showAddProduct() {
     this.addProductVisible = true;
   }
 
   addProductToCart(product: Product): void {
-    this.productEditorService.removeProduct(product);
     this.cartService.addToCart(product)
   }
-
-/*  removeFromDB(name: string, id: string) {
-    this.productEditorService
-      .DeleteProductFromDataBaseList(id)
-      .subscribe(res => {
-        this.notificationService.success('removed successfully');
-        this.productEditorService.removeFromApp(name);
-      });
-  }*/
+ removeProduct(product:Product) {
+   this.productEditorService.removeProduct(product);
+  }
 }

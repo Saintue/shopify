@@ -3,6 +3,7 @@ import {AsyncPipe, NgForOf, NgIf} from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import {CartService} from "../../../services/cart.service";
+import {Product} from "../../../interfaces/product";
 
 @Component({
   selector: 'sf-cart',
@@ -14,6 +15,7 @@ import {CartService} from "../../../services/cart.service";
 export class ProductCartComponent implements OnInit {
   constructor(protected cartService: CartService) {}
   ngOnInit() {}
-  removeFromCart(product: string, quantity: number, price: number) {
+  removeFromCart(product:Product) {
+    this.cartService.removeFromCart(product)
   }
 }

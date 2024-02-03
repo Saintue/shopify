@@ -1,10 +1,10 @@
-<div>
+<div class="register">
   <form
     class="register__form"
     [formGroup]="registerForm"
     (ngSubmit)="onSubmit()">
-    <span class="register__input-field">
-      <label class="label">mail</label>
+    <div class="form-input">
+      <span>mail</span>
       <input
         pInputText
         type="text"
@@ -14,29 +14,23 @@
         [class.invalid]="
           registerForm.get('mail')?.invalid && registerForm.get('mail')?.touched
         " />
-    </span>
-    <span
-      *ngIf="
-        registerForm.get('mail')?.errors?.['required'] &&
-        registerForm.get('mail')?.touched
-      "
-      ><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-        >this field is required</a
-      ></span
-    >
-    <span
-      *ngIf="
-        registerForm.get('mail')?.errors?.['email'] &&
-        registerForm.get('mail')?.touched
-      "
-      ><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-        >mail must be valid</a
-      ></span
-    >
-    <br />
-    <br />
-    <span class="register__input-field">
-      <label>password</label>
+      <span
+        *ngIf="
+          registerForm.get('mail')?.errors?.['required'] &&
+          registerForm.get('mail')?.touched
+        "
+        >this field is required</span
+      >
+      <span
+        *ngIf="
+          registerForm.get('mail')?.errors?.['email'] &&
+          registerForm.get('mail')?.touched
+        ">
+        mail must be valid</span
+      >
+    </div>
+    <div class="form-input">
+      <span>password</span>
       <input
         pInputText
         type="password"
@@ -47,20 +41,16 @@
             registerForm.get('password')?.touched) ||
           registerForm.errors?.['passwordMissMatch']
         " />
-    </span>
-    <span
-      *ngIf="
-        registerForm.get('password')?.invalid &&
-        registerForm.get('password')?.touched
-      "
-      ><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-        >this field is required</a
-      ></span
-    >
-    <br />
-    <br />
-    <span class="register__input-field">
-      <label>confirm password</label>
+      <span
+        *ngIf="
+          registerForm.get('password')?.invalid &&
+          registerForm.get('password')?.touched
+        ">
+        this field is required</span
+      >
+    </div>
+    <div class="form-input">
+      <span>confirm password</span>
       <input
         pInputText
         type="password"
@@ -71,32 +61,25 @@
             registerForm.get('confirm')?.touched) ||
           registerForm.errors?.['passwordMissMatch']
         " />
-    </span>
-    <div class="email__validators">
       <span
         *ngIf="
           registerForm.get('confirm')?.invalid &&
           registerForm.get('confirm')?.touched
-        "
-        ><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-          >this field is required</a
-        ></span
+        ">
+        this field is required</span
       >
       <span
         *ngIf="
           registerForm.errors?.['passwordMissMatch'] &&
           registerForm.get('confirm')?.touched
-        "
-        ><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-          >password miss match</a
-        ></span
-      >
+        ">
+        password miss match
+      </span>
     </div>
-    <br />
-    <br />
-    <div class="register__submit-button">
-      <p-button type="submit">sign up<sf-loading-spinner></sf-loading-spinner></p-button>
+    <div class="form-submit">
+      <p-button type="submit"
+        >sign up<sf-loading-spinner></sf-loading-spinner
+      ></p-button>
     </div>
   </form>
 </div>
-

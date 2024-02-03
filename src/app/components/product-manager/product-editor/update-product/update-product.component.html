@@ -1,6 +1,6 @@
-<div class="add-product">
+<div class="update-product">
   <form
-    class="add-product__form"
+    class="update-product__form"
     [formGroup]="addProductForm"
     (ngSubmit)="onSubmit()">
     <div class="form-input">
@@ -17,10 +17,10 @@
         " />
       <span
         *ngIf="
-          addProductForm.get('name')?.errors?.['required'] &&
-          addProductForm.get('name')?.touched
-        "
-        >this field is required</span
+        addProductForm.get('name')?.errors?.['required'] &&
+        addProductForm.get('name')?.touched
+      "
+      >this field is required</span
       >
     </div>
     <div class="form-input">
@@ -35,17 +35,17 @@
         " />
       <span
         *ngIf="
-          addProductForm.get('quantity')?.errors?.['required'] &&
-          addProductForm.get('quantity')?.touched
-        "
-        >this field is required</span
+        addProductForm.get('quantity')?.errors?.['required'] &&
+        addProductForm.get('quantity')?.touched
+      "
+      >this field is required</span
       >
       <span
         *ngIf="
-          addProductForm.get('quantity')?.errors?.['pattern'] &&
-          addProductForm.get('quantity')?.touched
-        "
-        >Numbers only</span
+        addProductForm.get('quantity')?.errors?.['pattern'] &&
+        addProductForm.get('quantity')?.touched
+      "
+      >Numbers only</span
       >
     </div>
     <div class="form-input">
@@ -60,22 +60,22 @@
         " />
       <span
         *ngIf="
-          addProductForm.get('price')?.errors?.['required'] &&
-          addProductForm.get('price')?.touched
-        "
-        >this field is required</span
+        addProductForm.get('price')?.errors?.['required'] &&
+        addProductForm.get('price')?.touched
+      "
+      >this field is required</span
       >
       <span
         *ngIf="
-          addProductForm.get('price')?.errors?.['pattern'] &&
-          addProductForm.get('price')?.touched
-        "
-        >Numbers only</span
+        addProductForm.get('price')?.errors?.['pattern'] &&
+        addProductForm.get('price')?.touched
+      "
+      >Numbers only</span
       >
     </div>
     <div class="form-submit">
       <p-button type="submit"
-        >add product<sf-loading-spinner></sf-loading-spinner
+      >update product<sf-loading-spinner></sf-loading-spinner
       ></p-button>
     </div>
   </form>

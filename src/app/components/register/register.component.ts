@@ -71,8 +71,12 @@ export class RegisterComponent {
 
   onSubmit(): void {
     this.loading.startLoading();
-    if (this.registerForm.valid) {
-      console.log('submit data', this.registerForm.value);
+    if (!this.registerForm.valid) {
+      this.registerForm.markAllAsTouched();
+      this.notifService.error('Invalid form data');
+      this.loading.stopLoading();
+      return
+    }
       this.Authencticate.registerUser({
         email: this.registerForm.value.mail,
         password: this.registerForm.value.password,
@@ -86,10 +90,5 @@ export class RegisterComponent {
           this.loading.stopLoading();
         }
       );
-    } else {
-      this.registerForm.markAllAsTouched();
-      this.notifService.error('Invalid form data');
-      this.loading.stopLoading();
-    }
   }
 }
