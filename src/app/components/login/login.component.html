@@ -1,10 +1,10 @@
-<div>
+<div class='login'>
   <form
     class="login__form"
     [formGroup]="loginForm"
     (ngSubmit)="onSubmit()">
-    <span class="login__input-field">
-      <label class="label">mail</label>
+    <div class="form-input">
+      <span>mail</span>
       <input
         pInputText
         type="text"
@@ -14,29 +14,24 @@
         [class.invalid]="
           loginForm.get('mail')?.invalid && loginForm.get('mail')?.touched
         " />
-    </span>
-    <span
-      *ngIf="
+      <span
+        *ngIf="
         loginForm.get('mail')?.errors?.['required'] &&
         loginForm.get('mail')?.touched
       "
-    ><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-    >this field is required</a
-    ></span
+      >this field is required
+    </span
     >
-    <span
-      *ngIf="
+      <span
+        *ngIf="
         loginForm.get('mail')?.errors?.['email'] &&
         loginForm.get('mail')?.touched
       "
-    ><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-    >mail must be valid</a
-    ></span
-    >
-    <br />
-    <br />
-    <span class="login__input-field">
-      <label>password</label>
+      >mail must be valid</span
+      >
+    </div>
+    <div class="form-input">
+      <span>password</span>
       <input
         pInputText
         type="password"
@@ -46,20 +41,15 @@
           (loginForm.get('confirm')?.invalid &&
             loginForm.get('password')?.touched)
         " />
-    </span>
-    <span
-      *ngIf="
+      <span
+        *ngIf="
         loginForm.get('password')?.invalid &&
         loginForm.get('password')?.touched
       "
-    ><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-    >this field is required</a
-    ></span
-    >
-    <br />
-    <br />
-
-    <div class="login__submit-button">
+      >this field is required</span
+      >
+    </div>
+    <div class="form-submit">
       <p-button type="submit">sign in<sf-loading-spinner></sf-loading-spinner></p-button>
     </div>
   </form>

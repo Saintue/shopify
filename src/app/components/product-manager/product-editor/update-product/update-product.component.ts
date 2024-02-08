@@ -3,7 +3,6 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { LoadingComponent } from '../../../../services/loading/loading.component';
 import { NgIf } from '@angular/common';
-import { PaginatorModule } from 'primeng/paginator';
 import {
   FormBuilder,
   FormControl,
@@ -22,31 +21,28 @@ interface AddProductForm
     price: FormControl<number>;
   }> {}
 @Component({
-  selector: 'sf-add-product',
+  selector: 'sf-update-product',
   standalone: true,
-  imports: [
-    ButtonModule,
-    InputTextModule,
-    LoadingComponent,
-    NgIf,
-    PaginatorModule,
-    ReactiveFormsModule,
-  ],
-  templateUrl: './add-product.component.html',
-  styleUrl: './add-product.component.scss',
+    imports: [
+        ButtonModule,
+        InputTextModule,
+        LoadingComponent,
+        NgIf,
+        ReactiveFormsModule
+    ],
+  templateUrl: './update-product.component.html',
+  styleUrl: './update-product.component.scss'
 })
-export class AddProductComponent {
+export class UpdateProductComponent {
   addProductForm: AddProductForm;
 
   constructor(
     private formBuilder: FormBuilder,
     private notifService: NotificationService,
-    private loading: LoadingService,
     private editor: ProductEditorService,
-    private destroyRef: DestroyRef
   ) {
     this.addProductForm = this.formBuilder.nonNullable.group({
-      name: ['', Validators.required],
+      name: [``, Validators.required],
       quantity: [0, [Validators.required, Validators.pattern(/^\d+$/)]],
       price: [0, [Validators.required, Validators.pattern(/^\d+$/)]],
     });
@@ -61,9 +57,9 @@ export class AddProductComponent {
       name: this.addProductForm.value.name!,
       quantity: this.addProductForm.value.quantity!,
       price: this.addProductForm.value.price!,
-      id: '0',
+      id: `${this.editor.productToEdit.id}`,
     };
-
-    this.editor.createProduct(formData);
+    console.log(formData)
+    this.editor.editProduct(formData);
   }
 }

@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  max-width: 1400px;
+  width: 100%;
+  justify-content: center;
+}
+
+.form-input{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+}
+
+.form-submit{
+  display: flex;
+  justify-content: center;
+}
